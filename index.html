@@ -46,6 +46,7 @@
 <button  class="btn btn-primary post-q" style="display: none;" onclick="screenshotResults()">Save Results</button>
 <br>
 
+<p style="user-select: none">Visitor Count: <span id="visitor-count">0</span></p>
 <script>
 function screenshotResults(){
     html2canvas(document.getElementById("results")).then(function(canvas) {
@@ -62,6 +63,34 @@ function screenshotResults(){
 <!-- ... (Previous HTML code remains unchanged) -->
 
 <script>
+        // check localstorage for session
+    if(localStorage.getItem("session") == null){
+        // if no session, create one
+        localStorage.setItem("session", Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15));
+        debugger
+        // send get request to https://sitevisitor.michaelalbert.org/add-visitor?site=surveycss350
+        var session = localStorage.getItem("session");
+        var url = "https://sitevisitor.michaelalbert.org/add-visitor?site=surveycss350";
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.send();
+    } else {
+
+
+        //get visitor count from https://sitevisitor.michaelalbert.org/visitor-count?site=surveycss350
+        debugger
+
+        var url = "https://sitevisitor.michaelalbert.org/visitor-count?site=surveycss350";
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                var count = xhr.responseText;
+                document.getElementById("visitor-count").innerHTML = count;
+            }
+        }
+    }
+
     // Function to load questions from JSON file
     async function loadQuestions() {
         const quizContainer = document.getElementById('quiz-container');
