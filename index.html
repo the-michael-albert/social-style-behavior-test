@@ -46,7 +46,18 @@
 <button  class="btn btn-primary post-q" style="display: none;" onclick="screenshotResults()">Save Results</button>
 <br>
 
-<p style="user-select: none">Visitor Count: <span id="visitor-count">0</span></p>
+<table style="width: 100%;">
+    <tr>
+        <td style="text-align: left;">
+            <p style="user-select: none">Visitor Count: <span id="visitor-count">0</span></p>
+
+        </td>
+        <td style="text-align: right;">
+            <p style="user-select: none">Made by Michael Albert</p>
+
+        </td>
+    </tr>
+
 <script>
 function screenshotResults(){
     html2canvas(document.getElementById("results")).then(function(canvas) {
@@ -65,7 +76,7 @@ function screenshotResults(){
 <script>
         // check localstorage for session
     if(localStorage.getItem("session") == null){
-        debugger
+        
         // if no session, create one
         localStorage.setItem("session", Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15));
         // send get request to https://sitevisitor.michaelalbert.org/add-visitor?site=surveycss350
@@ -78,7 +89,7 @@ function screenshotResults(){
         xhr.send();
     } else {
 
-        debugger
+        
 
         //get visitor count from https://sitevisitor.michaelalbert.org/visitor-count?site=surveycss350
 
@@ -89,7 +100,7 @@ function screenshotResults(){
 
         xhr.open("GET", url, true);
         xhr.onreadystatechange = function() {
-        debugger
+        
 
             if (xhr.readyState == 4) {
                 var count = xhr.responseText;
