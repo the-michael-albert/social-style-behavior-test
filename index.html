@@ -65,6 +65,7 @@ function screenshotResults(){
 <script>
         // check localstorage for session
     if(localStorage.getItem("session") == null){
+        debugger
         // if no session, create one
         localStorage.setItem("session", Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15));
         // send get request to https://sitevisitor.michaelalbert.org/add-visitor?site=surveycss350
@@ -77,6 +78,7 @@ function screenshotResults(){
         xhr.send();
     } else {
 
+        debugger
 
         //get visitor count from https://sitevisitor.michaelalbert.org/visitor-count?site=surveycss350
 
@@ -87,6 +89,8 @@ function screenshotResults(){
 
         xhr.open("GET", url, true);
         xhr.onreadystatechange = function() {
+        debugger
+
             if (xhr.readyState == 4) {
                 var count = xhr.responseText;
                 document.getElementById("visitor-count").innerHTML = count;
