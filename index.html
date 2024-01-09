@@ -67,21 +67,24 @@ function screenshotResults(){
     if(localStorage.getItem("session") == null){
         // if no session, create one
         localStorage.setItem("session", Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15));
-        debugger
         // send get request to https://sitevisitor.michaelalbert.org/add-visitor?site=surveycss350
         var session = localStorage.getItem("session");
         var url = "https://sitevisitor.michaelalbert.org/add-visitor?site=surveycss350";
         var xhr = new XMLHttpRequest();
+        //enable cors
+        xhr.withCredentials = false;
         xhr.open("GET", url, true);
         xhr.send();
     } else {
 
 
         //get visitor count from https://sitevisitor.michaelalbert.org/visitor-count?site=surveycss350
-        debugger
 
         var url = "https://sitevisitor.michaelalbert.org/visitor-count?site=surveycss350";
         var xhr = new XMLHttpRequest();
+        //enable cors 
+        xhr.withCredentials = false;
+
         xhr.open("GET", url, true);
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {
@@ -89,6 +92,7 @@ function screenshotResults(){
                 document.getElementById("visitor-count").innerHTML = count;
             }
         }
+        xhr.send();
     }
 
     // Function to load questions from JSON file
